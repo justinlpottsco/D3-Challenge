@@ -82,26 +82,26 @@ chartGroup.call(toolTip);
 circlesGroup.on("click", function(data) {
   toolTip.show(data, this);
 })
-      // onmouseout event
-      .on("mouseout", function(data, index) {
-        toolTip.hide(data);
-      });
+// onmouseout event
+  .on("mouseout", function(data, index) {
+  toolTip.hide(data);
+});
 
-    // Create axes labels
-    chartGroup.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 40)
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "1em")
-      .attr("class", "axisText")
-      .text("In Poverty (%)");
+// Create axes labels
+chartGroup.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left + 40)
+  .attr("x", 0 - (height / 2))
+  .attr("dy", "1em")
+  .attr("class", "axisText")
+  .text("In Poverty (%)");
 
-    chartGroup.append("text")
-      .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-      .attr("class", "axisText")
-      .text("Lacks Healthcare (%)");
-  }).catch(function(error) {
-    console.log(error);
-  });
+chartGroup.append("text")
+  .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+  .attr("class", "axisText")
+  .text("Lacks Healthcare (%)");
+  .catch(function(error) {
+console.log(error);
+});
 
   
