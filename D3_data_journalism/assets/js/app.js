@@ -56,5 +56,52 @@ chartGroup.append("g")
   chartGroup.append("g")  
   .call(leftAxis);
 
+// Create Circles
+var circlesGroup = chartGroup.selectAll("circle")
+  .data(healthriskData)
+  .enter()
+  .append("circle")
+  .attr("cx", d => xLinearScale(d.poverty))
+  .attr("cy", d => yLinearScale(d.healthcare))
+  .attr("r", "15")
+  .attr("fill", "pink")
+  .attr("opacity", ".5");
+
+// Initialize tool tip
+var toolTip = d3.tip()
+  .attr("class", "tooltip")
+  .offset([80, -60])
+  .html(function(d) {
+    return (`${d.id}<br>poverty: ${d.poverty}<br>healthcare: ${d.healthcare}`);
+  });
+
+// Create tooltip in the chart
+chartGroup.call(toolTip);
+
+// Create event listeners to display and hide the tooltip
+circlesGroup.on("click", function(data) {
+  toolTip.show(data, this);
+})
+      // onmouseout event
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
+
+    // Create axes labels
+    chartGroup.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left + 40)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .attr("class", "axisText")
+      .text("In Poverty (%)");
+
+    chartGroup.append("text")
+      .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+      .attr("class", "axisText")
+      .text("Lacks Healthcare (%)");
+  }).catch(function(error) {
+    console.log(error);
+  });
 
   
