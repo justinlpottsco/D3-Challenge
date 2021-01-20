@@ -26,7 +26,7 @@ var chartGroup = svg.append("g")
 // Import data from csv data file
 d3.csv("data.csv").then(function(healthriskData) {
     console.log(healthriskData)
-});
+
 
 // Format the data
 healthriskData.forEach(function(data) {
@@ -64,7 +64,7 @@ var circlesGroup = chartGroup.selectAll("circle")
   .attr("cx", d => xLinearScale(d.poverty))
   .attr("cy", d => yLinearScale(d.healthcare))
   .attr("r", "15")
-  .attr("fill", "pink")
+  .attr("fill", "blue")
   .attr("opacity", ".5");
 
 // Initialize tool tip
@@ -83,7 +83,7 @@ circlesGroup.on("click", function(data) {
   toolTip.show(data, this);
 })
 // onmouseout event
-  .on("mouseout", function(data, index) {
+  .on("mouseout", function(data) {
   toolTip.hide(data);
 });
 
@@ -100,7 +100,7 @@ chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
   .attr("class", "axisText")
   .text("Lacks Healthcare (%)");
-  .catch(function(error) {
+}).catch(function(error) {
 console.log(error);
 });
 
