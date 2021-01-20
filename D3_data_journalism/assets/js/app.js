@@ -55,3 +55,12 @@ chartGroup.append("g")
 
   chartGroup.append("g")  
   .call(leftAxis);
+
+  asdfdfdsf
+  asdfasddfsdf
+
+
+  asfdsafassssssssssssssssssssssss
+  asdfafasd
+  fdffdfsfsd
+  
