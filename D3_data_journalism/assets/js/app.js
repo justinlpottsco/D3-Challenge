@@ -101,6 +101,7 @@ chartGroup.append("text")
   .attr("class", "axisText")
   .text("Lacks Healthcare (%)");
 }).catch(function(error) {
+
 console.log(error);
 });
 
