@@ -25,13 +25,13 @@ var chartGroup = svg.append("g")
 
 // Import data from csv data file
 d3.csv("data.csv").then(function(healthriskData) {
-    console.log(healthriskData)
+    console.log(healthriskData);
 
 
-// Format the data
-healthriskData.forEach(function(data) {
-    data.healthcare = +data.healthcare;
-    data.poverty = +data.poverty;
+  // Format the data
+  // healthriskData.forEach(function(data) {
+  //     data.healthcare = +data.healthcare;
+  //     data.poverty = +data.poverty;
 });
 
 // Create Scales
@@ -53,7 +53,7 @@ chartGroup.append("g")
   .attr("transform", `translate(0, ${height})`)
   .call(bottomAxis);
 
-  chartGroup.append("g")  
+chartGroup.append("g")  
   .call(leftAxis);
 
 // Create Circles
@@ -100,9 +100,9 @@ chartGroup.append("text")
   .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
   .attr("class", "axisText")
   .text("Lacks Healthcare (%)");
-}).catch(function(error) {
+  //.catch(function(error) {
 
-console.log(error);
-});
+//console.log(error);
+//});
 
   
