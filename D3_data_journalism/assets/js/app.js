@@ -144,8 +144,8 @@ function visualize(theData) {
     .html(function(d) {
       // x key
       var theX;
-      // Grab country name
-      var theCountry_name = "<div>" + d.state + "</div>";
+      // Grab state name
+      var thestate = "<div>" + d.state + "</div>";
       // Snatch the y value's key and value
       var theY = "<div>" + curY + ": " + d[curY] + "%</div>";
       // If the x key is PCI
@@ -239,7 +239,7 @@ function visualize(theData) {
   // Make grouping for our dots and their labels.
   var theCircles = svg.selectAll("g theCircles").data(theData).enter();
 
-  // Append the circles for each row of data (or each country, in this case).
+  // Append the circles for each row of data (or each state, in this case).
   theCircles
     .append("circle")
     // These attr's specify location, size and class.
@@ -257,16 +257,20 @@ function visualize(theData) {
     .on("mouseover", function(d) {
       // Show the tooltip
       toolTip.show(d, this);
-      // Highlight the country circle's border
-      d3.select(this).style("stroke", "#323232");
+      // Highlight the state circle's border
+      d3.select("." + d.abbr).style("stroke", "#323232");
     })
     .on("mouseout", function(d) {
       // Remove the tooltip
       toolTip.hide(d);
       // Remove highlight
-      d3.select(this).style("stroke", "#e3e3e3");
+      d3.select("." + d.abbr).style("stroke", "#e3e3e3");
     });
-
+    theCircles
+    .append("text")
+    .text(function(d) {
+      return d.abbr;
+    })
   d3.selectAll(".aText").on("click", function() {
     // Make sure to save a selection of the clicked text so can reference it without typing out the invoker each time.
     var self = d3.select(this);
@@ -291,9 +295,9 @@ function visualize(theData) {
         // Use a transition when we update the xAxis.
         svg.select(".xAxis").transition().duration(750).call(xAxis);
 
-        // With the axis changed, let's update the location of the country circles.
+        // With the axis changed, let's update the location of the state circles.
         d3.selectAll("circle").each(function() {
-          // Each country circle gets a transition for it's new attribute.
+          // Each state circle gets a transition for it's new attribute.
           d3
             .select(this)
             .transition()
@@ -303,9 +307,9 @@ function visualize(theData) {
             .duration(750);
         });
 
-        // Need to change the location of the country texts, too.
+        // Need to change the location of the state texts, too.
         d3.selectAll(".stateText").each(function() {
-          // We give each country text the same motion tween as the matching circle.
+          // We give each state text the same motion tween as the matching circle.
           d3
             .select(this)
             .transition()
@@ -326,9 +330,9 @@ function visualize(theData) {
         // Update Y Axis
         svg.select(".yAxis").transition().duration(750).call(yAxis);
 
-        // With the axis changed...update the location of the country circles.
+        // With the axis changed...update the location of the state circles.
         d3.selectAll("circle").each(function() {
-          // Each country circle gets a transition for it's new attribute.
+          // Each state circle gets a transition for it's new attribute.
           d3
             .select(this)
             .transition()
@@ -337,9 +341,9 @@ function visualize(theData) {
             })
             .duration(750);
         });
-        // Need to change the location of the country texts, too.
+        // Need to change the location of the state texts, too.
         d3.selectAll(".stateText").each(function() {
-          // Give each country text the same motion as the matching circle.
+          // Give each state text the same motion as the matching circle.
           d3
             .select(this)
             .transition()

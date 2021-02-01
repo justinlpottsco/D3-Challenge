@@ -27,7 +27,13 @@ body{
   cursor: pointer;
 }
 
-.Country_nameCircle {
+.stateText {
+  font-family: sans-serif;
+  fill: #fff;
+  text-anchor: middle;
+}
+
+.stateCircle {
   fill: #4603fcd5;
 }
 
