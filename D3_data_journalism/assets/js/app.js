@@ -52,30 +52,30 @@ function xTextRefresh() {
 xTextRefresh();
 
 // xText to append SVG files, with y coordinates specified to space out the values
-// 2011 PCI
+// 
 xText
   .append("text")
   .attr("y", -25)
-  .attr("data-name", "2011_PCI")
+  .attr("data-name", "poverty")
   .attr("data-axis", "x")
   .attr("class", "aText active x")
-  .text("'11 Per Capita Income");
-// 2014 PCI
+  .text("In Poverty (%)");
+// 
 xText
   .append("text")
   .attr("y", 0)
-  .attr("data-name", "2014_PCI")
+  .attr("data-name", "age")
   .attr("data-axis", "x")
   .attr("class", "aText inactive x")
-  .text("'14 Per Capita Income");
-// 2017 PCI
+  .text("Age");
+// 
 xText
   .append("text")
   .attr("y", 25)
-  .attr("data-name", "2017_PCI")
+  .attr("data-name", "income")
   .attr("data-axis", "x")
   .attr("class", "aText inactive x")
-  .text("'17 Per Capita Income");
+  .text("Household Income");
 
 // Specifying the variables like this allows us to make our transform attributes more readable.
 var leftTextX = margin + tPadLeft;
@@ -97,35 +97,35 @@ function yTextRefresh() {
 yTextRefresh();
 
 // Append text
-// 2011 AO
+// 
 yText
   .append("text")
   .attr("y", -25)
-  .attr("data-name", "2011_AO")
+  .attr("data-name", "obesity")
   .attr("data-axis", "y")
   .attr("class", "aText active y")
-  .text("'11 Bank Account Owners");
+  .text("Obesity (%)");
 
 // 2014 AO
 yText
   .append("text")
   .attr("x", 0)
-  .attr("data-name", "2014_AO")
+  .attr("data-name", "smokes")
   .attr("data-axis", "y")
   .attr("class", "aText inactive y")
-  .text("'14 Bank Account Owners");
+  .text("Smokes (%)");
 
-// 2017 AO
+// 
 yText
   .append("text")
   .attr("y", 25)
-  .attr("data-name", "2017_AO")
+  .attr("data-name", "healthcare")
   .attr("data-axis", "y")
   .attr("class", "aText inactive y")
-  .text("'17 Bank Account Owners");
+  .text("Lacks Healthcare (%)");
 
 // Import CSV data with d3
-d3.csv("/Resources/data/Mergerd_table.csv").then(function(data) {
+d3.csv("./assets/data/data.csv").then(function(data) {
   visualize(data);
 });
 
@@ -133,8 +133,8 @@ d3.csv("/Resources/data/Mergerd_table.csv").then(function(data) {
 function visualize(theData) {
   // CurX and curY will determine what data gets represented in each axis.
   // Designate defaults here, which carry the same names as the headings in their matching .csv data file.
-  var curX = "2011_PCI"; "2014_PCI"; "2017_PCI";
-  var curY = "2011_AO"; "2014_AO"; "2017_AO";
+  var curX = "poverty";
+  var curY = "healthcare";
 
   // This function allows us to set up tooltip rules 
   var toolTip = d3
@@ -145,7 +145,7 @@ function visualize(theData) {
       // x key
       var theX;
       // Grab country name
-      var theCountry_name = "<div>" + d.Country_name + "</div>";
+      var theCountry_name = "<div>" + d.state + "</div>";
       // Snatch the y value's key and value
       var theY = "<div>" + curY + ": " + d[curY] + "%</div>";
       // If the x key is PCI
@@ -161,7 +161,7 @@ function visualize(theData) {
           parseFloat(d[curX]).toLocaleString("en") +
           "</div>";
       }
-        return theCountry_name + theX + theY;
+        return thestate + theX + theY;
     });
   // Call the toolTip function.
   svg.call(toolTip);
@@ -251,7 +251,7 @@ function visualize(theData) {
     })
     .attr("r", circRadius)
     .attr("class", function(d) {
-      return "Country_nameCircle " + d.Country_name;
+      return "stateCircle " + d.abbr;
     })
     // Hover rules
     .on("mouseover", function(d) {
@@ -304,7 +304,7 @@ function visualize(theData) {
         });
 
         // Need to change the location of the country texts, too.
-        d3.selectAll(".Country_nameText").each(function() {
+        d3.selectAll(".stateText").each(function() {
           // We give each country text the same motion tween as the matching circle.
           d3
             .select(this)
@@ -338,7 +338,7 @@ function visualize(theData) {
             .duration(750);
         });
         // Need to change the location of the country texts, too.
-        d3.selectAll(".Country_nameText").each(function() {
+        d3.selectAll(".stateText").each(function() {
           // Give each country text the same motion as the matching circle.
           d3
             .select(this)
